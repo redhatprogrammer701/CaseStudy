@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Title</title>
+  <title>Case Study</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,16 +24,20 @@
   <h2>Articles Dauphin</h2>
 
   <div class="container search-container">
-    <div class="input-group">
-      <input id="search-input" type="search" class="form-control" placeholder="Search for a Tag...">
-      <button id="search-button" type="button" class="btn btn-primary">
-        <i class="fa fa-search"></i>
-      </button>
-    </div>
+    <form class="form-inline" method="POST" autocomplete="off">
+      <div class="input-group">
+        <a class="mx-3" href="{{ url_for('index') }}"><i class="fa fa-home fa-2x"></i> </a> 
+        <div class="form-group mx-sm-3 mb-2">
+          <input type="Search" name="tag" class="form-control" placeholder="Search for a Tag...">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2" name=""><i class="fa fa-search"></i></button>
+
+      </div>
+    </form>
   </div>
 
   <div class="container">
-    {% for result in results|batch(4,'&nbsp;') %}
+    {% for result in results|batch(4) %}
     <div class="row">
       {% for col in result %}
       <div class="col-lg-3">
@@ -41,7 +45,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ col.Title }}</h5>
             <date>{{ col.Date }}</date>
-            <p class="tag-class">{{ col.Tag }}</p> 
+            <p class="tag-class">{{ col.Tag }}</p>
             <p class="card-text">{{ col.Resume }}</p>
             <a href="{{ col.Link }}" class="btn btn-primary">Learn More</a>
           </div>

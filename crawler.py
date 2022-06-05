@@ -46,19 +46,14 @@ def extract_information():
             src = driver.page_source
             soup = BeautifulSoup(src,'lxml')
             wrapper = soup.find('main',{'class':'body-container-wrapper'})
-            #titles
-            titles = wrapper.find_all('a',{'class':None})
-            #resumen
-            resume = wrapper.find_all('p',{'class':None})
-            #tags
+            titles = wrapper.find_all('a',{'class':None}) #titles
+            resume = wrapper.find_all('p',{'class':None}) #Resumen
+            
             for i in range(len(titles)):
                 tag = link.split('/')[-1].replace('-', ' ')
-                article_tags.append(tag)
+                article_tags.append(tag) #tags
+            dates = wrapper.find_all('span',{'class':'blog-index__post-date'}) #dates
             
-            #date
-            dates = wrapper.find_all('span',{'class':'blog-index__post-date'})
-            
-                
             for (title, date, resume_) in zip(titles, dates, resume):
                 article_titles.append(title.get_text())
                 article_links.append(title['href'])
@@ -75,7 +70,6 @@ def extract_information():
     driver.close()  
     return(article_dates, article_titles, article_resume, article_tags, article_links)
 
-
 info = extract_information()
 
 info_data = {
@@ -89,3 +83,4 @@ info_data = {
 
 df = pd.DataFrame(info_data)
 df.to_csv('valores.csv', index=False)
+
